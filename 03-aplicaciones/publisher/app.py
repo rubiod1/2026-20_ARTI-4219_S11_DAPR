@@ -14,6 +14,8 @@ logging.basicConfig(
 DAPR_HTTP_PORT = 3500
 PUBSUB_NAME    = "order-pubsub"   # Debe coincidir con metadata.name del Component YAML
 TOPIC_NAME     = "orders"
+# TTL por mensaje: Dapr lo lee de la petición de publicación, no del Component
+MESSAGE_TTL    = 120
 
 
 def publish_order(order_id: str, status: str) -> None:
@@ -26,7 +28,7 @@ def publish_order(order_id: str, status: str) -> None:
 
     Referencia: https://docs.dapr.io/reference/api/pubsub_api/#publish-a-message-to-a-given-topic
     """
-    url = f"http://localhost:{DAPR_HTTP_PORT}/v1.0/publish/{PUBSUB_NAME}/{TOPIC_NAME}"
+    url = f"http://localhost:{DAPR_HTTP_PORT}/v1.0/publish/{PUBSUB_NAME}/{TOPIC_NAME}?metadata.ttlInSeconds={MESSAGE_TTL}"
 
     payload = {
         "orderId": order_id,

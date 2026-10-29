@@ -21,8 +21,8 @@ spec:
     #
     # Referencia: https://docs.dapr.io/developing-applications/building-blocks/pubsub/pubsub-message-ttl/
     # ---------------------------------------------------------------------------
-    # - name: ???
-    #   value: ???
+    # En Redis el TTL no se configura aquí: se envía por publicación con
+    # ?metadata.ttlInSeconds=120 (ver 03-aplicaciones/publisher/app.py).
 
     # ---------------------------------------------------------------------------
     # TODO 2: Configurar Consumer Group con Namespace para Multi-Tenancy
@@ -33,5 +33,5 @@ spec:
     #
     # Referencia: https://docs.dapr.io/operations/components/component-scopes/#namespaced-components
     # ---------------------------------------------------------------------------
-    # - name: ???
-    #   value: ???
+    - name: consumerID
+      value: "order-subscriber-{namespace}"
